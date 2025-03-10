@@ -1541,7 +1541,7 @@ namespace BetterJoyForCemu {
                 }
             }
 
-            if (!is64)
+            if (!(isSnes || is64))
             {
                 if (other != null || isPro) {
                     byte lval = GyroAnalogSliders ? sliderVal[0] : Byte.MaxValue;
@@ -1552,6 +1552,12 @@ namespace BetterJoyForCemu {
                     output.trigger_left = (byte)(buttons[(int)(isLeft ? Button.SHOULDER_2 : Button.SHOULDER_1)] ? Byte.MaxValue : 0);
                     output.trigger_right = (byte)(buttons[(int)(isLeft ? Button.SHOULDER_1 : Button.SHOULDER_2)] ? Byte.MaxValue : 0);
                 }
+            }
+
+            //SHOULDER_1 = LT
+            if (isSnes) {
+                output.thumb_stick_left = buttons[(int)(Button.SHOULDER_2)];
+                output.thumb_stick_right = buttons[(int)(Button.SHOULDER2_2)];
             }
 
             return output;
